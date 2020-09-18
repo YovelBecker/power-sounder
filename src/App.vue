@@ -7,7 +7,6 @@
 
 <script>
 import NavBar from '@/components/Common/NavBar'
-import soundService from './services/soundService'
 export default {
   components:{
     NavBar
