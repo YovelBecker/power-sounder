@@ -1,3 +1,9 @@
 import sounds from './data/mockSoundData.json'
 
-console.log(sounds)
+export default {
+    getSounds
+}
+
+async function getSounds(){
+    return sounds
+}
