@@ -1,14 +1,14 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import mainApp from '../views/main-app.vue'
+import SoundPage from '../views/SoundPage.vue'
 
 Vue.use(VueRouter)
 
 const routes = [
   {
     path: '/',
-    name: 'main-app',
-    component: mainApp
+    name: 'soundPage',
+    component: SoundPage
   }
 ]
 
