@@ -24,11 +24,11 @@ export default {
 
 <style lang="scss">
 .sound-page-container {
-  background-image: linear-gradient(to top, #229292 0%, #330867 100%);
-  min-height:70vh;
-  max-width: 85%;
+  background-image: linear-gradient(to bottom, #3A3054 0%, #007195 100%);
   margin: 0 auto;
-  border-radius:20px;
-  box-shadow: 0px 0px 17px 1px rgba(0,0,0,0.3);
+  max-width: 100%;
+  width: 900px;
+  border-radius: 20px;
+  box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.3);
 }
 </style>

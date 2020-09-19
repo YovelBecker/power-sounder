@@ -1,6 +1,7 @@
 <template>
   <section
-    @click.self="play"
+    @click="play"
+    @contextmenu.prevent="console.log('right-click')"
     class="sound-preview-container"
     :class="{ playing: isPlaying }"
   >
@@ -25,44 +26,49 @@ export default {
   },
   created() {
     this.currSound.ontimeupdate = () => {
-      if (this.currSound.ended) {
+      if (this.currSound.ended || this.currSound.paused) {
         this.isPlaying = false;
       } else {
-        this.isPlaying = (!this.currSound.paused) ? true : false;
+        this.isPlaying = true;
       }
+    }
+  },
+  computed: {
+    console() {
+      return console;
     }
   },
   methods: {
     play() {
       if (this.isPlaying) {
         this.currSound.pause();
+        this.currSound.currentTime = 0;
       } else {
-        this.isPlaying = true;
         this.currSound.play();
       }
-    }
+      this.isPlaying = !this.isPlaying;
+    },
   },
 }
 </script>
 
 <style lang="scss">
 .sound-preview-container {
-  width: 15vw;
-  height: 15vw;
-  margin: 20px;
-  padding: 10px 0;
+  display: flex;
+  flex-direction: column-reverse;
+  padding: 10px;
   border-radius: 5px;
   box-shadow: 0px 0px 17px 1px rgba(0, 0, 0, 0.3);
   background-image: linear-gradient(to top, #4481eb 0%, #04befe 100%);
   cursor: pointer;
-  display: flex;
-  flex-direction: column-reverse;
+  user-select: none;
+
   h4 {
     text-align: center;
   }
-}
 
-.playing {
-  background-image: linear-gradient(to top, #eb4444 0%, #fefa04 100%);
+  &.playing {
+    background-image: linear-gradient(to top, #eb4444 0%, #fefa04 100%);
+  }
 }
 </style>

@@ -15,13 +15,19 @@ export default {
 @import "@/styles/vars.scss";
 
 .nav-bar-container {
-  margin: 20px 0;
-  padding: 20px 0;
+  padding: 40px 0;
+  margin-bottom: 20px;
   h1 {
-    @include flex-center;
+    width: fit-content;
+    margin: 0 auto;
     font-size: $font-size-large;
     letter-spacing: 2px;
     font-weight: $font-weight-semi-bold;
+    transition: letter-spacing 0.2s;
+    
+    &:hover {
+      letter-spacing: 5px;
+    }
   }
 }
 </style>
