@@ -1,10 +1,15 @@
 <template>
-  <section class="sound-preview-container">
+  <section
+    @click.self="play"
+    class="sound-preview-container"
+    :class="{ playing: isPlaying }"
+  >
     <h4>{{ sound.name | capitalizeAll }}</h4>
   </section>
 </template>
 
 <script>
+
 export default {
   props: {
     sound: {
@@ -12,9 +17,31 @@ export default {
       required: false
     }
   },
+  data() {
+    return {
+      currSound: new Audio(require(`../../assets/sounds/${this.sound.id}.mp3`)),
+      isPlaying: false
+    }
+  },
   created() {
-    console.log(this.sound)
-  }
+    this.currSound.ontimeupdate = () => {
+      if (this.currSound.ended) {
+        this.isPlaying = false;
+      } else {
+        this.isPlaying = (!this.currSound.paused) ? true : false;
+      }
+    }
+  },
+  methods: {
+    play() {
+      if (this.isPlaying) {
+        this.currSound.pause();
+      } else {
+        this.isPlaying = true;
+        this.currSound.play();
+      }
+    }
+  },
 }
 </script>
 
@@ -33,5 +60,9 @@ export default {
   h4 {
     text-align: center;
   }
+}
+
+.playing {
+  background-image: linear-gradient(to top, #eb4444 0%, #fefa04 100%);
 }
 </style>

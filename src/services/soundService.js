@@ -4,6 +4,6 @@ export default {
     getSounds
 }
 
-async function getSounds(){
+async function getSounds() {
     return sounds
 }
