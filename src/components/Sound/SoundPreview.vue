@@ -1,7 +1,7 @@
 <template>
   <section
-    @click="play"
-    @contextmenu.prevent="console.log('right-click')"
+    @click="playSound"
+    @contextmenu.prevent
     class="sound-preview-container"
     :class="{ playing: isPlaying }"
   >
@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   props: {
@@ -18,35 +19,21 @@ export default {
       required: false
     }
   },
-  data() {
-    return {
-      currSound: new Audio(require(`../../assets/sounds/${this.sound.id}.mp3`)),
-      isPlaying: false
-    }
-  },
-  created() {
-    this.currSound.ontimeupdate = () => {
-      if (this.currSound.ended || this.currSound.paused) {
-        this.isPlaying = false;
-      } else {
-        this.isPlaying = true;
-      }
-    }
-  },
   computed: {
-    console() {
-      return console;
+    ...mapGetters(['currSound']),
+    isPlaying() {
+      return this.currSound?.id === this.sound.id
     }
   },
   methods: {
-    play() {
+    ...mapMutations(['setCurrSound', 'play', 'pause']),
+    playSound() {
       if (this.isPlaying) {
-        this.currSound.pause();
-        this.currSound.currentTime = 0;
+        this.pause();
       } else {
-        this.currSound.play();
+        this.setCurrSound(this.sound.id);
+        this.play(this.sound.id)
       }
-      this.isPlaying = !this.isPlaying;
     },
   },
 }
